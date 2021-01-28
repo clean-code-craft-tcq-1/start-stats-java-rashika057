@@ -1,6 +1,5 @@
 package statisticker;
 
-import java.util.DoubleSummaryStatistics;
 import java.util.List;
 
 public class Statistics 
@@ -9,19 +8,14 @@ public class Statistics
     	//implement the computation of statistics here
     	Statistics statictics = new Statistics();
     	Stats statsObj = statictics.new Stats();
-    	if(!numbers.isEmpty()) {
-    	DoubleSummaryStatistics stats = numbers.stream()
-                .mapToDouble(x -> x)
-                .summaryStatistics();    	
-    	statsObj.setAverage((float) stats.getAverage());
-    	statsObj.setMax((float) stats.getMax());
-    	statsObj.setMin((float) stats.getMin());
-    	}
-    	else {
-    		statsObj.setAverage(Float.NaN);
-        	statsObj.setMax(Float.NaN);
-        	statsObj.setMin(Float.NaN);
-    	}
+    	
+    		statsObj.setAverage((float) numbers.stream()
+                    .mapToDouble(x -> x).average().orElse(Float.NaN));
+        	statsObj.setMax((float) numbers.stream()
+                    .mapToDouble(x -> x).max().orElse(Float.NaN));
+        	statsObj.setMin((float) numbers.stream()
+                    .mapToDouble(x -> x).min().orElse(Float.NaN));
+    	
 		return statsObj;           
     }
     
